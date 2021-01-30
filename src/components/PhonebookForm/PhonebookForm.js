@@ -1,63 +1,83 @@
-import React from 'react';
-import styles from '../PhonebookForm/phonebookForm.module.css';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-const { v4: uuidv4 } = require('uuid');
+import React from "react";
+import styles from "../PhonebookForm/phonebookForm.module.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const { v4: uuidv4 } = require("uuid");
 
 class PhonebookForm extends React.Component {
-    state = {
-        name: '',
-        number: ''
-    }
-    
-    nameInputId = uuidv4();
-    numberInputId = uuidv4();
-    
-    handleSubmit = (e) => {
-        e.preventDefault();
-        if(this.state.name.length === 0)
-        {
-            toast.info("Please enter name")
-            return
-        }
+  state = {
+    name: "",
+    number: "",
+  };
 
-        if(this.state.number.length === 0)
-        {
-            toast.info("Please enter number")
-            return
-        }
+  nameInputId = uuidv4();
+  numberInputId = uuidv4();
 
-        this.props.onSubmit(this.state);
-        this.reset();
+  handleSubmit = (e) => {
+    e.preventDefault();
+    if (this.state.name.length === 0) {
+      toast.info("Please enter name");
+      return;
     }
-    
-    reset = () => {
-        this.setState({
-            name: '',
-            number: ''
-        })
+
+    if (this.state.number.length === 0) {
+      toast.info("Please enter number");
+      return;
     }
-    
-    handleChange = (event) => {
-        this.setState({
-            [event.currentTarget.name]: event.currentTarget.value
-        })
-    }
-    
-    render (){
-        const {name, number} = this.state;
-        return <div>
-                   <form className ={styles.form} onSubmit ={this.handleSubmit}>
-                       <label className ={styles.label}> <span className ={styles.name}>Name</span> 
-                          <input className ={styles.input} name ="name" type ="text" value ={name} placeholder ="enter name" onChange ={this.handleChange}/>
-                       </label>
-                       <label className ={styles.label}> Number 
-                          <input className ={styles.input} name ="number" type ="number" value ={number} placeholder ="enter number" onChange ={this.handleChange}/>
-                       </label>
-                       <button className ={styles.btn} type ="submit">add contact</button>
-                   </form>
-                </div>
-    }
+
+    this.props.onSubmit(this.state);
+    this.reset();
+  };
+
+  reset = () => {
+    this.setState({
+      name: "",
+      number: "",
+    });
+  };
+
+  handleChange = (event) => {
+    this.setState({
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
+
+  render() {
+    const { name, number } = this.state;
+    return (
+      <div>
+        <form className={styles.form} onSubmit={this.handleSubmit}>
+          <label className={styles.label}>
+            {" "}
+            <span className={styles.name}>Name</span>
+            <input
+              className={styles.input}
+              name="name"
+              type="text"
+              value={name}
+              placeholder="enter name"
+              onChange={this.handleChange}
+            />
+          </label>
+          <label className={styles.label}>
+            {" "}
+            Number
+            <input
+              className={styles.input}
+              name="number"
+              type="number"
+              value={number}
+              placeholder="enter number"
+              onChange={this.handleChange}
+            />
+          </label>
+          <button className={styles.btn} type="submit">
+            add contact
+          </button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default PhonebookForm;
